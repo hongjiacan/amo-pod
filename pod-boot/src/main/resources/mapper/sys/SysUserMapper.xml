@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amoy.pod.module.sys.mapper.SysUserMapper">
+
+
+    <resultMap type="com.amoy.pod.module.sys.domain.SysUserEntity" id="sysUserMap">
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="openid" column="openid"/>
+        <result property="nickname" column="nickname"/>
+        <result property="realname" column="realname"/>
+        <result property="idcard" column="idcard"/>
+        <result property="password" column="password"/>
+        <result property="birthday" column="birthday"/>
+        <result property="gender" column="gender"/>
+        <result property="avatar" column="avatar"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="queryList" resultType="com.amoy.pod.module.sys.domain.SysUserEntity" resultMap="sysUserMap">
+        select
+            *
+        from sys_user
+        order by user_id desc
+    </select>
+
+    <select id="queryObject" resultType="com.amoy.pod.module.sys.domain.SysUserEntity" resultMap="sysUserMap">
+        select
+            *
+        from sys_user
+        where user_id = #{value}
+        limit 1
+    </select>
+
+    <insert id="save" parameterType="com.amoy.pod.module.sys.domain.SysUserEntity">
+		insert into sys_user(
+		    user_id,
+		    user_name,
+		    phone,
+		    email,
+		    openid,
+		    nickname,
+		    realname,
+		    idcard,
+		    password,
+		    birthday,
+		    gender,
+		    avatar,
+		    create_time) values(
+            #{userId},
+            #{userName},
+            #{phone},
+            #{email},
+            #{openid},
+            #{nickname},
+            #{realname},
+            #{idcard},
+            #{password},
+            #{birthday},
+            #{gender},
+            #{avatar},
+            #{createTime}
+        )
+	</insert>
+
+    <update id="update" parameterType="com.amoy.pod.module.sys.domain.SysUserEntity">
+        update sys_user
+        <set>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="realname != null">realname = #{realname},</if>
+            <if test="idcard != null">idcard = #{idcard},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="gender != null">gender = #{gender}</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <select id="queryByUserName" resultType="com.amoy.pod.module.sys.domain.SysUserEntity" resultMap="sysUserMap">
+        select
+            *
+        from sys_user
+        where user_name = #{userName}
+        limit 1
+    </select>
+
+</mapper>

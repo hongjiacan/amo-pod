@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amoy.pod.module.sys.mapper.SysRoleMapper">
+
+
+    <resultMap type="com.amoy.pod.module.sys.domain.SysRoleEntity" id="sysRoleMap">
+        <result property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <select id="queryList" resultType="com.amoy.pod.module.sys.domain.SysRoleEntity" resultMap="sysRoleMap">
+        select
+            *
+        from sys_role
+        order by role_id desc
+    </select>
+
+    <select id="queryObject" resultType="com.amoy.pod.module.sys.domain.SysRoleEntity" resultMap="sysRoleMap">
+        select
+            *
+        from sys_role
+        where role_id = #{value}
+        limit 1
+    </select>
+
+
+    <insert id="save" parameterType="com.amoy.pod.module.sys.domain.SysRoleEntity">
+		insert into sys_role(
+		    role_id,role_name,nickname,description) values(
+            #{roleId},#{roleName},#{nickname},#{description}
+        )
+	</insert>
+
+    <update id="update" parameterType="com.amoy.pod.module.sys.domain.SysRoleEntity">
+        update sys_role
+        <set>
+            <if test="role_name != null">role_name = #{role_name},</if>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="description != null">description = #{description}</if>
+        </set>
+        where role_id = #{roleId}
+    </update>
+
+    <delete id="delete">
+		delete from sys_role where role_id = #{value}
+	</delete>
+
+    <select id="queryByRoleCode" resultType="com.amoy.pod.module.sys.domain.SysRoleEntity" resultMap="sysRoleMap">
+        select
+            *
+        from sys_role
+        where role_code = #{roleCode}
+        limit 1
+    </select>
+
+    <select id="queryListByUserId" resultType="com.amoy.pod.module.sys.domain.SysRoleEntity" resultMap="sysRoleMap">
+        select
+            r.*
+        from sys_role r
+        left join sys_role_user ru on ru.role_id = r.role_id
+        where ru.user_id = #{userId}
+    </select>
+</mapper>
