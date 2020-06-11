@@ -10,14 +10,14 @@ logging:
 jwt:
   header: Authorization
   secret: amoy.cloud
-  expiration: 100800000   #单位:毫秒
+  expiration: 100800   #单位:秒
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/boot?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: root
+    password: root!23
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       minimum-idle: 5

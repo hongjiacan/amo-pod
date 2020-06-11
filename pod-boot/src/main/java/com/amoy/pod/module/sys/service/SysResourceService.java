@@ -32,6 +32,13 @@ public interface SysResourceService {
     public List<SysResourceEntity> queryListByUserId(long userId);
 
     /**
+     * 根据用户id查找功能项编码列表
+     * @param userId
+     * @return
+     */
+    public List<String> queryPermissionListByUserId(long userId);
+
+    /**
      * 根据用户id查找菜单树
      * @param userId
      * @return

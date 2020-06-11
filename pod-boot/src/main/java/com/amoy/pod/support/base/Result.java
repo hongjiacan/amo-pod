@@ -1,5 +1,7 @@
 package com.amoy.pod.support.base;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.HashMap;
 
 /**
@@ -26,7 +28,7 @@ public class Result extends HashMap<String, Object> {
     }
 
     public static Result ok(){
-        return new Result(true).put("status", String.valueOf(200));
+        return new Result(true).put("status", HttpStatus.OK.value());
     }
 
     public static Result ok(String message){
@@ -41,8 +43,8 @@ public class Result extends HashMap<String, Object> {
         return Result.error().put("message", message);
     }
 
-    public static Result error(String message, String status){
-        return Result.error(message).put("status", status);
+    public static Result error(String message, HttpStatus httpStatus){
+        return Result.error(message).put("status", httpStatus.value());
     }
 
     public boolean isSuccess(){

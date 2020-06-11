@@ -36,11 +36,11 @@ public interface SysRoleService {
     public SysRoleEntity queryByRoleCode(String roleCode);
 
     /**
-     * 根据用户id查找角色列表
+     * 根据用户id查找角色编码列表
      * @param userId
      * @return
      */
-    public List<SysRoleEntity> queryListByUserId(long userId);
+    public List<String> queryRoleCodeListByUserId(long userId);
 
     /**
      * 新增

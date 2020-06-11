@@ -1,11 +1,11 @@
-package com.amoy.pod.support.shiro;
+package com.amoy.pod.support.security;
 
-import com.amoy.pod.module.sys.domain.SysUserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -25,7 +25,7 @@ public class JwtTokenUtil {
 
     private String secret;
 
-    private Long expiration;// 过期时间 毫秒
+    private Long expiration;// 过期时间 秒
 
     private String header;
 
@@ -36,7 +36,7 @@ public class JwtTokenUtil {
      * @return 令牌
      */
     private String generateToken(Map<String, Object> claims) {
-        Date expirationDate = new Date(System.currentTimeMillis() + expiration);
+        Date expirationDate = new Date(System.currentTimeMillis() + expiration*1000);
         return Jwts.builder().setClaims(claims).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
@@ -62,9 +62,9 @@ public class JwtTokenUtil {
      * @param user 用户
      * @return 令牌
      */
-    public String generateToken(SysUserEntity user) {
+    public String generateToken(UserDetails user) {
         Map<String, Object> claims = new HashMap<>(2);
-        claims.put(Claims.SUBJECT, user.getUserName());
+        claims.put(Claims.SUBJECT, user.getUsername());
         claims.put(Claims.ISSUED_AT, new Date());
         return generateToken(claims);
     }
@@ -124,11 +124,11 @@ public class JwtTokenUtil {
      * 验证令牌
      *
      * @param token       令牌
-     * @param user 用户
+     * @param user        用户
      * @return 是否有效
      */
-    public Boolean validateToken(String token, SysUserEntity user) {
+    public Boolean validateToken(String token, UserDetails user) {
         String username = getUsernameFromToken(token);
-        return (username.equals(user.getUserName()) && !isTokenExpired(token));
+        return (username.equals(user.getUsername()) && !isTokenExpired(token));
     }
 }

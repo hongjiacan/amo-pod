@@ -45,4 +45,13 @@
         where sru.user_id=#{userId}
     </select>
 
+    <select id="queryPermissionListByUserId" resultType="String">
+        select
+            t.permission
+        from sys_resource t
+        left join sys_role_resource srr on srr.resource_id = t.resource_id
+        left join sys_role_user sru on sru.role_id = srr.role_id
+        where sru.user_id=#{userId}
+          and t.type = '3'
+    </select>
 </mapper>

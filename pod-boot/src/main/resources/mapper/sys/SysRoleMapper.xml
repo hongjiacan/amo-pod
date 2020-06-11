@@ -56,9 +56,9 @@
         limit 1
     </select>
 
-    <select id="queryListByUserId" resultType="com.amoy.pod.module.sys.domain.SysRoleEntity" resultMap="sysRoleMap">
+    <select id="queryRoleCodeListByUserId" resultType="String">
         select
-            r.*
+            r.role_code
         from sys_role r
         left join sys_role_user ru on ru.role_id = r.role_id
         where ru.user_id = #{userId}

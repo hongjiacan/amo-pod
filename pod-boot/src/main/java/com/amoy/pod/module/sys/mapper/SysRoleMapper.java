@@ -18,5 +18,5 @@ public interface SysRoleMapper extends BaseMapper<SysRoleEntity> {
 
     SysRoleEntity queryByRoleCode(@Param("roleCode")String roleCode);
 
-    List<SysRoleEntity> queryListByUserId(@Param("userId")long userId);
+    List<String> queryRoleCodeListByUserId(@Param("userId")long userId);
 }

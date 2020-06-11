@@ -23,4 +23,6 @@ public interface SysResourceMapper extends BaseMapper<SysResourceEntity> {
     List<SysResourceEntity> queryListByParentId(@Param("parentId")long parentId);
 
     List<SysResourceEntity> queryListByUserId(@Param("userId")long userId);
+
+    List<String> queryPermissionListByUserId(@Param("userId")long userId);
 }

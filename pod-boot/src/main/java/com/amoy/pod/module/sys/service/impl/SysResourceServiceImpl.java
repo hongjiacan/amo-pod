@@ -65,6 +65,16 @@ public class SysResourceServiceImpl implements SysResourceService {
     }
 
     /**
+     * 根据用户id查找功能项编码列表
+     * @param userId
+     * @return
+     */
+    public List<String> queryPermissionListByUserId(long userId){
+
+        return sysResourceMapper.queryPermissionListByUserId(userId);
+    }
+
+    /**
      * 根据用户id查找菜单树
      * @param userId
      * @return
